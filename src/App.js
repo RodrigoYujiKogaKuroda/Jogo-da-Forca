@@ -41,6 +41,7 @@ export default function App() {
         setPalavra(sorteada);
         setPalavraExibida(criarPalavra(sorteada));
         setPalavraComparada(sorteada.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+        console.log(sorteada.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
     }
 
     function fimDeJogo() {
@@ -49,8 +50,7 @@ export default function App() {
 
     function escolherLetra(letra) {
         let temLetra = false;
-        let exibida = palavraExibida;
-        console.log(palavraComparada);
+        let exibida = [...palavraExibida];
         for (let i = 0; i < palavraComparada.length; i++) {
             if (palavraComparada[i] === letra) {
                 temLetra = true;
@@ -58,6 +58,7 @@ export default function App() {
             }
         }
         if (temLetra === true) {
+            console.log(exibida);
             setPalavraExibida(exibida);
         } else {
             let errado = erros + 1
@@ -75,7 +76,7 @@ export default function App() {
                 <img src={forcas[erros]} alt="forca" data-identifier="game-image" />
                 <MenuLado>
                     <button onClick={() => escolherPalavra()} disabled={!desativado} data-identifier="choose-word">Escolher palavra</button>
-                    <p>{palavraExibida.join(" ")}</p>
+                    <p>{palavraExibida}</p>
                 </MenuLado>
             </Forca>
             <Letras>
