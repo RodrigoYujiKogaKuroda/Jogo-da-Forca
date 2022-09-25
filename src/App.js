@@ -23,6 +23,7 @@ export default function App() {
     const [erros, setErros] = React.useState(0);
     const [chute, setChute] = React.useState("");
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    const [alfabetoSelecionado, setAlfabetoSelecionado] = React.useState([]);
     const [palavra, setPalavra] = React.useState("");
     const [palavraExibida, setPalavraExibida] = React.useState([]);
     const [palavraComparada, setPalavraComparada] = React.useState("");
@@ -40,6 +41,7 @@ export default function App() {
         setDesativado(false);
         setErros(0);
         setCorTexto("black");
+        setAlfabetoSelecionado([]);
         let sorteada = palavras.sort(comparador)[0];
         setPalavra(sorteada);
         setPalavraExibida(criarPalavra(sorteada));
@@ -57,9 +59,19 @@ export default function App() {
         }
     }
 
+    function foiEscolhida(letra) {
+        for (let i = 0; i < alfabetoSelecionado.length; i++) {
+            if (letra === alfabetoSelecionado[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function escolherLetra(letra) {
         let temLetra = false;
         let exibida = [...palavraExibida];
+        setAlfabetoSelecionado([...alfabetoSelecionado, letra]);
         for (let i = 0; i < palavraComparada.length; i++) {
             if (palavraComparada[i] === letra) {
                 temLetra = true;
@@ -93,7 +105,7 @@ export default function App() {
             </Forca>
             <Letras>
                 {alfabeto.map( letra => 
-                    <button onClick={() => escolherLetra(letra)} disabled={desativado} data-identifier="letter">{letra}</button>
+                    <button onClick={() => escolherLetra(letra)} disabled={foiEscolhida(letra) || desativado ? true : false} data-identifier="letter">{letra}</button>
                 )}
             </Letras>
             <Formulario>
