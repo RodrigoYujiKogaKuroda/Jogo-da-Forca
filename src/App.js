@@ -20,19 +20,19 @@ export default function App() {
 
     const forcas = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
     const [desativado, setDesativado] = React.useState(true);
-    const [forca, setForca] = React.useState(0);
+    const [erros, setErros] = React.useState(0);
     const [chute, setChute] = React.useState("");
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
     const [palavra, setPalavra] = React.useState("");
-    const [palavraExibida, setPalavraExibida] = React.useState("");
-    const [erros, setErros] = React.useState(0);
+    const [palavraExibida, setPalavraExibida] = React.useState([]);
+    const [palavraComparada, setPalavraComparada] = React.useState("");
 
     function criarPalavra(sorteada) {
-        let palavra = "";
+        let escondida = [];
         for (let i = 0; i < sorteada.length; i++) {
-            palavra += "_ ";
+            escondida.push("_");
         }
-        return palavra
+        return escondida;
     }
 
     function escolherPalavra() {
@@ -40,20 +40,42 @@ export default function App() {
         let sorteada = palavras.sort(comparador)[0];
         setPalavra(sorteada);
         setPalavraExibida(criarPalavra(sorteada));
+        setPalavraComparada(sorteada.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+    }
+
+    function fimDeJogo() {
+        alert("Você perdeu!");
     }
 
     function escolherLetra(letra) {
-        console.log(letra);
+        let temLetra = false;
+        let exibida = palavraExibida;
+        console.log(palavraComparada);
+        for (let i = 0; i < palavraComparada.length; i++) {
+            if (palavraComparada[i] === letra) {
+                temLetra = true;
+                exibida[i] = palavra[i];
+            }
+        }
+        if (temLetra === true) {
+            setPalavraExibida(exibida);
+        } else {
+            let errado = erros + 1
+            setErros(errado);
+            if (errado === 6) {
+                fimDeJogo();
+            }
+        }
     }
 
     return (
         <>
             <GlobalStyle />
             <Forca>
-                <img src={forcas[forca]} alt="forca" data-identifier="game-image" />
+                <img src={forcas[erros]} alt="forca" data-identifier="game-image" />
                 <MenuLado>
                     <button onClick={() => escolherPalavra()} disabled={!desativado} data-identifier="choose-word">Escolher palavra</button>
-                    <p>{palavraExibida}</p>
+                    <p>{palavraExibida.join(" ")}</p>
                 </MenuLado>
             </Forca>
             <Letras>
