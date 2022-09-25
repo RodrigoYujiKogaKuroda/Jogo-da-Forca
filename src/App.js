@@ -26,6 +26,7 @@ export default function App() {
     const [palavra, setPalavra] = React.useState("");
     const [palavraExibida, setPalavraExibida] = React.useState([]);
     const [palavraComparada, setPalavraComparada] = React.useState("");
+    const [corTexto, setCorTexto] = React.useState("black");
 
     function criarPalavra(sorteada) {
         let escondida = [];
@@ -37,15 +38,23 @@ export default function App() {
 
     function escolherPalavra() {
         setDesativado(false);
+        setErros(0);
+        setCorTexto("black");
         let sorteada = palavras.sort(comparador)[0];
         setPalavra(sorteada);
         setPalavraExibida(criarPalavra(sorteada));
         setPalavraComparada(sorteada.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
-        console.log(sorteada.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
+        console.log(sorteada);
     }
 
-    function fimDeJogo() {
-        alert("Você perdeu!");
+    function fimDeJogo(ganhou) {
+        setDesativado(true);
+        if (ganhou === true) {
+            setCorTexto("green");
+        } else {
+            setCorTexto("red");
+            setPalavraExibida(palavra);
+        }
     }
 
     function escolherLetra(letra) {
@@ -58,13 +67,16 @@ export default function App() {
             }
         }
         if (temLetra === true) {
-            console.log(exibida);
+            console.log(exibida.join(""));
             setPalavraExibida(exibida);
+            if (exibida.join("") === palavraComparada) {
+                fimDeJogo(true);
+            }
         } else {
             let errado = erros + 1
             setErros(errado);
             if (errado === 6) {
-                fimDeJogo();
+                fimDeJogo(false);
             }
         }
     }
@@ -76,7 +88,7 @@ export default function App() {
                 <img src={forcas[erros]} alt="forca" data-identifier="game-image" />
                 <MenuLado>
                     <button onClick={() => escolherPalavra()} disabled={!desativado} data-identifier="choose-word">Escolher palavra</button>
-                    <p>{palavraExibida}</p>
+                    <Resposta cor={corTexto}>{palavraExibida}</Resposta>
                 </MenuLado>
             </Forca>
             <Letras>
@@ -128,11 +140,12 @@ const MenuLado = styled.div`
     button:disabled {
         cursor: default;
     }
+`;
 
-    p {
-        font-size: 40px;
-        font-weight: bold;
-    }
+const Resposta = styled.p`
+    color: ${props => props.cor};
+    font-size: 40px;
+    font-weight: bold;
 `;
 
 const Letras = styled.div`
