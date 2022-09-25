@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import ReactDOM from "react-dom";
 import styled from 'styled-components';
 import GlobalStyle from './theme/globalStyle'
@@ -19,7 +18,7 @@ function comparador() {
 
 export default function App() {
 
-    const [desativado, setDesativado] = React.useState("");
+    const [desativado, setDesativado] = React.useState(true);
     const [forca, setForca] = React.useState(forca0);
     const [chute, setChute] = React.useState("");
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -41,7 +40,7 @@ export default function App() {
             </Forca>
             <Letras>
                 {alfabeto.map( letra => 
-                    <button onClick={() => escolherLetra(letra)} data-identifier="letter">{letra}</button>
+                    <button onClick={() => escolherLetra(letra)} disabled={desativado} data-identifier="letter">{letra}</button>
                 )}
             </Letras>
             <Formulario>
@@ -55,7 +54,7 @@ export default function App() {
                         data-identifier="type-guess"
                         />
                     </Campo>
-                    <button data-identifier="guess-button">Chutar</button>
+                    <button disabled={desativado} data-identifier="guess-button">Chutar</button>
             </Formulario>
         </>
     );
@@ -110,9 +109,17 @@ const Letras = styled.div`
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
         cursor: pointer;
     }
+
+    button:disabled {
+        background-color: #9faab5;
+        color: #79818a;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
 `;
 
-const Formulario = styled.form`
+const Formulario = styled.div`
     margin-top: 50px;
     display: flex;
     justify-content: center;
