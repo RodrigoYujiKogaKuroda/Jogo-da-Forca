@@ -93,6 +93,17 @@ export default function App() {
         }
     }
 
+    function adivinhar() {
+        let adivinhado = chute.toLowerCase();
+        if (adivinhado === palavra) {
+            setPalavraExibida(palavra);
+            fimDeJogo(true);
+        } else if (adivinhado.length > 0) {
+            setErros(6);
+            fimDeJogo(false);
+        }
+    }
+
     return (
         <>
             <GlobalStyle />
@@ -120,7 +131,7 @@ export default function App() {
                         data-identifier="type-guess"
                         />
                     </Campo>
-                    <button disabled={desativado} data-identifier="guess-button">Chutar</button>
+                    <button onClick={adivinhar} disabled={desativado} data-identifier="guess-button">Chutar</button>
             </Formulario>
         </>
     );
