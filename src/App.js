@@ -18,11 +18,29 @@ function comparador() {
 
 export default function App() {
 
+    const forcas = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
     const [desativado, setDesativado] = React.useState(true);
-    const [forca, setForca] = React.useState(forca0);
+    const [forca, setForca] = React.useState(0);
     const [chute, setChute] = React.useState("");
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    const palavra = palavras.sort(comparador)[0];
+    const [palavra, setPalavra] = React.useState("");
+    const [palavraExibida, setPalavraExibida] = React.useState("");
+    const [erros, setErros] = React.useState(0);
+
+    function criarPalavra(sorteada) {
+        let palavra = "";
+        for (let i = 0; i < sorteada.length; i++) {
+            palavra += "_ ";
+        }
+        return palavra
+    }
+
+    function escolherPalavra() {
+        setDesativado(false);
+        let sorteada = palavras.sort(comparador)[0];
+        setPalavra(sorteada);
+        setPalavraExibida(criarPalavra(sorteada));
+    }
 
     function escolherLetra(letra) {
         console.log(letra);
@@ -32,10 +50,10 @@ export default function App() {
         <>
             <GlobalStyle />
             <Forca>
-                <img src={forca} alt="forca" data-identifier="game-image" />
+                <img src={forcas[forca]} alt="forca" data-identifier="game-image" />
                 <MenuLado>
-                    <button data-identifier="choose-word">Escolher palavra</button>
-                    <p>{palavra}</p>
+                    <button onClick={() => escolherPalavra()} disabled={!desativado} data-identifier="choose-word">Escolher palavra</button>
+                    <p>{palavraExibida}</p>
                 </MenuLado>
             </Forca>
             <Letras>
@@ -84,6 +102,10 @@ const MenuLado = styled.div`
         cursor: pointer;
     }
 
+    button:disabled {
+        cursor: default;
+    }
+
     p {
         font-size: 40px;
         font-weight: bold;
@@ -116,6 +138,7 @@ const Letras = styled.div`
         border: none;
         border-radius: 5px;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        cursor: default;
     }
 `;
 
@@ -136,6 +159,10 @@ const Formulario = styled.div`
         border-radius: 5px;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
         cursor: pointer;
+    }
+
+    button:disabled {
+        cursor: default;
     }
 `;
 
