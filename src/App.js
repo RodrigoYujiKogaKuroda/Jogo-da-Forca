@@ -111,7 +111,7 @@ export default function App() {
             <Forca>
                 <img src={forcas[erros]} alt="forca" data-identifier="game-image" />
                 <MenuLado>
-                    <button onClick={() => escolherPalavra()} disabled={!desativado} data-identifier="choose-word">Escolher palavra</button>
+                    <button onClick={() => escolherPalavra()} data-identifier="choose-word">Escolher palavra</button>
                     <Resposta cor={corTexto}>{palavraExibida}</Resposta>
                 </MenuLado>
             </Forca>
