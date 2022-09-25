@@ -31,7 +31,7 @@ export default function App() {
     function criarPalavra(sorteada) {
         let escondida = [];
         for (let i = 0; i < sorteada.length; i++) {
-            escondida.push("_");
+            escondida.push(" _ ");
         }
         return escondida;
     }
@@ -104,6 +104,7 @@ export default function App() {
                         id="chute"
                         value={chute}
                         onChange={(e) => setChute(e.target.value)}
+                        disabled={desativado}
                         data-identifier="type-guess"
                         />
                     </Campo>
