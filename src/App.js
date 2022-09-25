@@ -22,12 +22,12 @@ export default function App() {
     const [desativado, setDesativado] = React.useState(true);
     const [erros, setErros] = React.useState(0);
     const [chute, setChute] = React.useState("");
+    const [corTexto, setCorTexto] = React.useState("black");
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
     const [alfabetoSelecionado, setAlfabetoSelecionado] = React.useState([]);
     const [palavra, setPalavra] = React.useState("");
     const [palavraExibida, setPalavraExibida] = React.useState([]);
     const [palavraComparada, setPalavraComparada] = React.useState("");
-    const [corTexto, setCorTexto] = React.useState("black");
 
     function criarPalavra(sorteada) {
         let escondida = [];
@@ -40,6 +40,7 @@ export default function App() {
     function escolherPalavra() {
         setDesativado(false);
         setErros(0);
+        setChute("");
         setCorTexto("black");
         setAlfabetoSelecionado([]);
         let sorteada = palavras.sort(comparador)[0];
