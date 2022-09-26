@@ -46,7 +46,6 @@ export default function App() {
         setPalavra(sorteada);
         setPalavraExibida(criarPalavra(sorteada));
         setPalavraComparada(sorteada.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
-        console.log(sorteada);
     }
 
     function fimDeJogo(ganhou) {
