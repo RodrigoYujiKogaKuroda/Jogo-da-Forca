@@ -2,27 +2,31 @@ import React from "react";
 import styled from 'styled-components';
 import palavras from "./palavras";
 
-export default function Jogo(props) {
+let Jogo = function(props) {
 
-    const forcas = props.forcas;
-    const setDesativado = props.setDesativado;
-    const erros = props.erros;
-    const setErros = props.setErros;
-    const setChute = props.setChute;
-    const corTexto = props.corTexto;
-    const setCorTexto = props.setCorTexto;
-    const setAlfabetoSelecionado = props.setAlfabetoSelecionado;
-    const setPalavra = props.setPalavra
-    const palavraExibida = props.palavraExibida;
-    const setPalavraExibida = props.setPalavraExibida
-    const setPalavraComparada = props.setPalavraComparada
-
-    function comparador() { 
-        return Math.random() - 0.5; 
+    const {
+        forcas,
+        setDesativado,
+        erros,
+        setErros,
+        setChute,
+        corTexto,
+        setCorTexto,
+        setAlfabetoSelecionado,
+        setPalavra,
+        palavraExibida,
+        setPalavraExibida,
+        setPalavraComparada
+    } = props;
+    const seed = 0.5;
+    const listaPalavras = [...palavras].sort(comparador);
+    
+    function comparador() {
+        return Math.random() - seed;
     }
 
     function criarPalavra(sorteada) {
-        let escondida = [];
+        const escondida = [];
         for (let i = 0; i < sorteada.length; i++) {
             escondida.push(" _ ");
         }
@@ -35,7 +39,7 @@ export default function Jogo(props) {
         setChute("");
         setCorTexto("black");
         setAlfabetoSelecionado([]);
-        let sorteada = palavras.sort(comparador)[0];
+        const sorteada = listaPalavras[0];
         setPalavra(sorteada);
         setPalavraExibida(criarPalavra(sorteada));
         setPalavraComparada(sorteada.normalize('NFD').replace(/[\u0300-\u036f]/g, ""));
@@ -88,3 +92,5 @@ const Resposta = styled.p`
     font-size: 40px;
     font-weight: bold;
 `;
+
+export default Jogo;

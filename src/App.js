@@ -1,9 +1,9 @@
 import React from "react";
-import GlobalStyle from './theme/globalStyle'
+import GlobalStyle from './theme/globalStyle';
 
-import Jogo from "./Jogo"
-import Letras from "./Letras"
-import Chute from "./Chute"
+import Jogo from "./Jogo";
+import Letras from "./Letras";
+import Chute from "./Chute";
 import forca0 from "./assets/forca0.png";
 import forca1 from "./assets/forca1.png";
 import forca2 from "./assets/forca2.png";
@@ -38,9 +38,42 @@ export default function App() {
     return (
         <>
             <GlobalStyle />
-            <Jogo forcas={forcas} setDesativado={setDesativado} erros={erros} setErros={setErros} setChute={setChute} corTexto={corTexto} setCorTexto={setCorTexto} setAlfabetoSelecionado={setAlfabetoSelecionado} setPalavra={setPalavra} palavraExibida={palavraExibida} setPalavraExibida={setPalavraExibida} setPalavraComparada={setPalavraComparada} />
-            <Letras desativado={desativado} erros={erros} setErros={setErros} alfabeto={alfabeto} alfabetoSelecionado={alfabetoSelecionado} setAlfabetoSelecionado={setAlfabetoSelecionado} palavra={palavra} palavraExibida={palavraExibida} setPalavraExibida={setPalavraExibida} palavraComparada={palavraComparada} fimDeJogo={fimDeJogo} />
-            <Chute desativado={desativado} setErros={setErros} chute={chute} setChute={setChute} palavra={palavra} setPalavraExibida={setPalavraExibida} fimDeJogo={fimDeJogo} />
+            <Jogo
+                forcas={forcas}
+                setDesativado={setDesativado}
+                erros={erros}
+                setErros={setErros}
+                setChute={setChute}
+                corTexto={corTexto}
+                setCorTexto={setCorTexto}
+                setAlfabetoSelecionado={setAlfabetoSelecionado}
+                setPalavra={setPalavra}
+                palavraExibida={palavraExibida}
+                setPalavraExibida={setPalavraExibida}
+                setPalavraComparada={setPalavraComparada}
+            />
+            <Letras
+                desativado={desativado}
+                erros={erros}
+                setErros={setErros}
+                alfabeto={alfabeto}
+                alfabetoSelecionado={alfabetoSelecionado}
+                setAlfabetoSelecionado={setAlfabetoSelecionado}
+                palavra={palavra}
+                palavraExibida={palavraExibida}
+                setPalavraExibida={setPalavraExibida}
+                palavraComparada={palavraComparada}
+                fimDeJogo={fimDeJogo}
+            />
+            <Chute
+                desativado={desativado}
+                setErros={setErros}
+                chute={chute}
+                setChute={setChute}
+                palavra={palavra}
+                setPalavraExibida={setPalavraExibida}
+                fimDeJogo={fimDeJogo}
+            />
         </>
     );
 }

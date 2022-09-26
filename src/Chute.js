@@ -1,23 +1,26 @@
 import React from "react";
 import styled from 'styled-components';
 
-export default function Chute(props) {
+let Chute = function(props) {
 
-    const desativado = props.desativado;
-    const setErros = props.setErros;
-    const chute = props.chute;
-    const setChute = props.setChute;
-    const palavra = props.palavra;
-    const setPalavraExibida = props.setPalavraExibida;
-    const fimDeJogo = props.fimDeJogo;
+    const {
+        desativado,
+        setErros,
+        chute,
+        setChute,
+        palavra,
+        setPalavraExibida,
+        fimDeJogo
+    } = props;
+    const ultimoErro = 6;
 
     function adivinhar() {
-        let adivinhado = chute.toLowerCase();
+        const adivinhado = chute.toLowerCase();
         if (adivinhado === palavra) {
             setPalavraExibida(palavra);
             fimDeJogo(true);
         } else if (adivinhado.length > 0) {
-            setErros(6);
+            setErros(ultimoErro);
             fimDeJogo(false);
         }
     }
@@ -28,12 +31,12 @@ export default function Chute(props) {
             <Campo>
                 <label htmlFor="chute">Já sei a palavra!</label>
                 <input
-                type="text"
-                id="chute"
-                value={chute}
-                onChange={(e) => setChute(e.target.value)}
-                disabled={desativado}
-                data-identifier="type-guess"
+                    type="text"
+                    id="chute"
+                    value={chute}
+                    onChange={(e) => setChute(e.target.value)}
+                    disabled={desativado}
+                    data-identifier="type-guess"
                 />
             </Campo>
             <button onClick={adivinhar} disabled={desativado} data-identifier="guess-button">Chutar</button>
@@ -86,3 +89,5 @@ const Campo = styled.div`
 		font-size: 24px
     }
 `;
+
+export default Chute;

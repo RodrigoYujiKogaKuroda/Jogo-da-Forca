@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
- 
+import { createGlobalStyle } from 'styled-components';
+
 const GlobalStyle = createGlobalStyle`
     /* http://meyerweb.com/eric/tools/css/reset/ 
     v2.0 | 20110126
@@ -51,6 +51,6 @@ const GlobalStyle = createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
-`
- 
-export default GlobalStyle
+`;
+
+export default GlobalStyle;

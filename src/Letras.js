@@ -1,19 +1,21 @@
 import React from "react";
 import styled from 'styled-components';
 
-export default function Letras(props) {
+let Letras = function(props) {
 
-    const desativado = props.desativado;
-    const erros = props.erros;
-    const setErros = props.setErros;
-    const alfabeto = props.alfabeto;
-    const alfabetoSelecionado = props.alfabetoSelecionado;
-    const setAlfabetoSelecionado = props.setAlfabetoSelecionado;
-    const palavra = props.palavra;
-    const palavraExibida = props.palavraExibida;
-    const setPalavraExibida = props.setPalavraExibida;
-    const palavraComparada = props.palavraComparada;
-    const fimDeJogo = props.fimDeJogo;
+    const {desativado,
+        erros,
+        setErros,
+        alfabeto,
+        alfabetoSelecionado,
+        setAlfabetoSelecionado,
+        palavra,
+        palavraExibida,
+        setPalavraExibida,
+        palavraComparada,
+        fimDeJogo
+    } = props;
+    const ultimoErro = 6;
 
     function foiEscolhida(letra) {
         for (let i = 0; i < alfabetoSelecionado.length; i++) {
@@ -26,7 +28,7 @@ export default function Letras(props) {
 
     function escolherLetra(letra) {
         let temLetra = false;
-        let exibida = [...palavraExibida];
+        const exibida = [...palavraExibida];
         setAlfabetoSelecionado([...alfabetoSelecionado, letra]);
         for (let i = 0; i < palavraComparada.length; i++) {
             if (palavraComparada[i] === letra) {
@@ -41,9 +43,9 @@ export default function Letras(props) {
                 fimDeJogo(true);
             }
         } else {
-            let errado = erros + 1
+            const errado = erros + 1;
             setErros(errado);
-            if (errado === 6) {
+            if (errado === ultimoErro) {
                 fimDeJogo(false);
             }
         }
@@ -52,7 +54,7 @@ export default function Letras(props) {
     return (
         <>
         <Teclado>
-            {alfabeto.map( letra => 
+            {alfabeto.map( letra =>
                 <button key={letra} onClick={() => escolherLetra(letra)} disabled={foiEscolhida(letra) || desativado ? true : false} data-identifier="letter">{letra}</button>
             )}
         </Teclado>
@@ -90,3 +92,5 @@ const Teclado = styled.div`
         cursor: default;
     }
 `;
+
+export default Letras;
